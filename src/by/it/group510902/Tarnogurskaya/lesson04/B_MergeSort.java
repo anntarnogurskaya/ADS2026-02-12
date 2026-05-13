@@ -30,37 +30,37 @@ public class B_MergeSort {
     }
 
     private void mergeSort(int[] arr, int left, int right) {
-        if (left >= right) {
-            return;
+        if (left >= right) { // Базовый случай: если остался 1 элемент или пустой отрезок
+            return; // массив из 1 элемента уже отсортирован
         }
-        int mid = left + (right - left) / 2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
-        merge(arr, left, mid, right);
+        int mid = left + (right - left) / 2; // Находим середину
+        mergeSort(arr, left, mid);  // Рекурсивно сортируем левую половину
+        mergeSort(arr, mid + 1, right); // Рекурсивно сортируем правую половину
+        merge(arr, left, mid, right);  // Сливаем две отсортированные половины
     }
-
+    //Сортировка слиянием = РАЗДЕЛИ до единичных элементов + СЛИВАЙ по правилу "меньший берём первым"
     private void merge(int[] arr, int left, int mid, int right) {
-        int[] temp = new int[right - left + 1];
-        int i = left;
-        int j = mid + 1;
-        int k = 0;
-
+        int[] temp = new int[right - left + 1]; // Создаём временный массив для результата слияния
+        int i = left;  // указатель на левую половину (от left до mid)
+        int j = mid + 1; // указатель на правую половину (от mid+1 до right)
+        int k = 0;  // указатель во временном массиве
+        // СЛИЯНИЕ: сравниваем элементы и берём меньший
         while (i <= mid && j <= right) {
             if (arr[i] <= arr[j]) {
-                temp[k++] = arr[i++];
+                temp[k++] = arr[i++]; // берём из левой половины
             } else {
-                temp[k++] = arr[j++];
+                temp[k++] = arr[j++]; // берём из правой половины
             }
         }
-
+        // ДОЗАПОЛНЕНИЕ: если в левой половине остались элементы
         while (i <= mid) {
             temp[k++] = arr[i++];
         }
-
+        // ДОЗАПОЛНЕНИЕ: если в правой половине остались элементы
         while (j <= right) {
             temp[k++] = arr[j++];
         }
-
+        // КОПИРОВАНИЕ: переносим отсортированные элементы обратно
         for (int p = 0; p < temp.length; p++) {
             arr[left + p] = temp[p];
         }

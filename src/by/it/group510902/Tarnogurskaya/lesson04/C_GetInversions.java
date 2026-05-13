@@ -43,12 +43,15 @@ public class C_GetInversions {
 
     private long mergeSort(int[] arr, int[] temp, int left, int right) {
         if (left >= right) {
-            return 0;
+            return 0; // 1 элемент - 0 инверсий
         }
         int mid = left + (right - left) / 2;
         long invCount = 0;
+        // Считаем инверсии в левой половине
         invCount += mergeSort(arr, temp, left, mid);
+        // Считаем инверсии в правой половине
         invCount += mergeSort(arr, temp, mid + 1, right);
+        // Считаем инверсии между половинами
         invCount += merge(arr, temp, left, mid, right);
         return invCount;
     }
@@ -61,8 +64,11 @@ public class C_GetInversions {
 
         while (i <= mid && j <= right) {
             if (arr[i] <= arr[j]) {
+                // Нет инверсии, просто копируем
                 temp[k++] = arr[i++];
             } else {
+                // arr[i] > arr[j], при этом левая половина отсортирована
+                // значит все элементы от i до mid тоже > arr[j]
                 temp[k++] = arr[j++];
                 invCount += (mid - i + 1);
             }

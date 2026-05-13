@@ -40,18 +40,18 @@ public class A_BinaryFind {
         int right = arr.length - 1;
 
         while (left <= right) {
-            int mid = left + (right - left) / 2;
+            int mid = left + (right - left) / 2; //находим середину
 
             if (arr[mid] == value) {
-                return mid + 1;
+                return mid + 1; //нашли значение
             } else if (arr[mid] < value) {
-                left = mid + 1;
+                left = mid + 1; //ищем слева
             } else {
-                right = mid - 1;
+                right = mid - 1; //ищем справа
             }
         }
 
-        return -1;
+        return -1; //элемента нет
     }
 
     public int[] findIndex(InputStream stream) throws FileNotFoundException {
